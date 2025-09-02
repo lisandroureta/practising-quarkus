@@ -1,0 +1,4 @@
+org/agoncal/fascicle/quarkus/number/NumberResource.class
+org/agoncal/fascicle/quarkus/number/NumberApplication.class
+org/agoncal/fascicle/quarkus/number/NumberApplicationLifeCycle.class
+org/agoncal/fascicle/quarkus/number/BookNumbers.class

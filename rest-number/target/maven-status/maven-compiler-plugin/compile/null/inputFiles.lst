@@ -1,0 +1,5 @@
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-number/src/main/java/org/agoncal/fascicle/quarkus/number/BookNumbers.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-number/src/main/java/org/agoncal/fascicle/quarkus/number/NumberApplicationLifeCycle.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-number/src/main/java/org/agoncal/fascicle/quarkus/number/health/PingNumberResourceHealthCheck.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-number/src/main/java/org/agoncal/fascicle/quarkus/number/NumberApplication.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-number/src/main/java/org/agoncal/fascicle/quarkus/number/NumberResource.java

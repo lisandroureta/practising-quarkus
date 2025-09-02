@@ -1,0 +1,23 @@
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.10
+
+# Instalamos Java 17
+RUN microdnf install -y java-17-openjdk-headless ca-certificates curl \
+    && microdnf clean all \
+    && mkdir -p /deployments \
+    && chown 1001:root /deployments \
+    && chmod g+rwX /deployments
+
+# Para que Quarkus escuche en todas las interfaces dentro del contenedor
+ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+
+WORKDIR /deployments
+
+# Copiamos el layout fast-jar que genera Quarkus en JVM
+COPY target/quarkus-app/lib/ /deployments/lib/
+COPY target/quarkus-app/*.jar /deployments/
+COPY target/quarkus-app/app/ /deployments/app/
+COPY target/quarkus-app/quarkus/ /deployments/quarkus/
+
+EXPOSE 8081
+USER 1001
+ENTRYPOINT ["java","-jar","/deployments/quarkus-run.jar"]

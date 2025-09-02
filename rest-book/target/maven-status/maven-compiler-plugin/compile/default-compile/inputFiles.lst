@@ -1,0 +1,9 @@
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/BookApplication.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/client/NumberProxy.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/client/IsbnNumbers.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/BookApplicationLifeCycle.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/health/DatabaseConnectionHealthCheck.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/BookService.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/BookResource.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/Book.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/health/PingBookResourceHealthCheck.java
