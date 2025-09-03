@@ -16,7 +16,7 @@
  */
 package org.agoncal.fascicle.quarkus.load;
 
-import javax.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Entity;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

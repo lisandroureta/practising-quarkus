@@ -16,9 +16,9 @@
  */
 package org.agoncal.fascicle.quarkus.load;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.ws.rs.client.Entity;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.ws.rs.client.Entity;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +31,7 @@ import static org.agoncal.fascicle.quarkus.load.Endpoint.endpointWithEntity;
 import static org.agoncal.fascicle.quarkus.load.Endpoint.endpointWithTemplates;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
-import static javax.ws.rs.client.Entity.json;
+import static jakarta.ws.rs.client.Entity.json;
 
 public class ScenarioBook extends ScenarioInvoker {
 

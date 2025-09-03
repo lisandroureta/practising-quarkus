@@ -18,12 +18,12 @@
 
   <properties>
     <version.java>17</version.java>
-    <quarkus-plugin.version>2.16.6.Final</quarkus-plugin.version>
-    <quarkus.platform.version>2.16.6.Final</quarkus.platform.version>
+    <quarkus-plugin.version>3.15.0</quarkus-plugin.version>
+    <quarkus.platform.version>3.15.0</quarkus.platform.version>
     <javafaker.version>1.0.2</javafaker.version>
     <testcontainers.version>1.20.3</testcontainers.version>
-    <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <surefire-plugin.version>3.2.3</surefire-plugin.version>
+    <compiler-plugin.version>3.12.1</compiler-plugin.version>
     <exec-plugin.version>1.6.0</exec-plugin.version>
     <assembly-plugin.version>3.2.0</assembly-plugin.version>
     <frontend-maven-plugin.version>1.9.1</frontend-maven-plugin.version>

@@ -1,6 +1,6 @@
 version: "3"
 services:
-  ui-bookstore:
+  uiBookstore:
     image: "informatica/ui-bookstore:1.0-SNAPSHOT"
     container_name: "ui-bookstore"
     ports:
@@ -9,13 +9,13 @@ services:
       - rest-number
       - rest-book
 
-  rest-number:
+  restNumber:
     image: "informatica/rest-number:1.0-SNAPSHOT"
     container_name: "rest-number"
     ports:
       - "8081:8081"
 
-  rest-book:
+  restBook:
     image: "informatica/rest-book:1.0-SNAPSHOT"
     container_name: "rest-book"
     ports:
