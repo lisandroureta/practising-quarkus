@@ -1,5 +1,6 @@
 package org.agoncal.fascicle.quarkus.number;
 
+import io.quarkus.security.Authenticated;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -23,6 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @Path("/api/numbers/book")
 @Tag(name = "Number Endpoint")
+@Authenticated
 public class NumberResource {
 
   private static final Logger LOGGER = Logger.getLogger(NumberResource.class.getName());

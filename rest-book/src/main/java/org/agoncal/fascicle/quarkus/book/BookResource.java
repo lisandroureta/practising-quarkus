@@ -1,5 +1,6 @@
 package org.agoncal.fascicle.quarkus.book;
 
+import io.quarkus.security.Authenticated;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -38,6 +39,7 @@ import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Book Endpoint")
+@Authenticated //para la seguridad
 public class BookResource {
 
   @Inject
