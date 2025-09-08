@@ -1,6 +1,6 @@
 package org.agoncal.fascicle.quarkus.book.health;
 
-import org.agoncal.fascicle.quarkus.book.BookResource;
+import org.agoncal.fascicle.quarkus.book.recurso.RecursoLibro;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
@@ -13,11 +13,11 @@ import jakarta.inject.Inject;
 public class PingBookResourceHealthCheck implements HealthCheck {
 
   @Inject
-  BookResource bookResource;
+  RecursoLibro recursoLibro;
 
   @Override
   public HealthCheckResponse call() {
-    bookResource.ping();
+    recursoLibro.ping();
     return HealthCheckResponse.named("Ping Book REST Endpoint").up().build();
   }
 }

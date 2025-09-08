@@ -1,9 +1,12 @@
-org/agoncal/fascicle/quarkus/book/BookResource.class
-org/agoncal/fascicle/quarkus/book/Book.class
+org/agoncal/fascicle/quarkus/book/servicio/BookService.class
+org/agoncal/fascicle/quarkus/book/recurso/BookResource.class
+org/agoncal/fascicle/quarkus/book/modelo/Book.class
 org/agoncal/fascicle/quarkus/book/client/IsbnNumbers.class
+org/agoncal/fascicle/quarkus/book/transformador/TransformadorLibro.class
 org/agoncal/fascicle/quarkus/book/health/DatabaseConnectionHealthCheck.class
-org/agoncal/fascicle/quarkus/book/BookService.class
 org/agoncal/fascicle/quarkus/book/client/NumberProxy.class
+org/agoncal/fascicle/quarkus/book/acceso/AccesoLibro.class
+org/agoncal/fascicle/quarkus/book/transferible/TransferibleLibro.class
 org/agoncal/fascicle/quarkus/book/BookApplicationLifeCycle.class
 org/agoncal/fascicle/quarkus/book/BookApplication.class
 org/agoncal/fascicle/quarkus/book/health/PingBookResourceHealthCheck.class

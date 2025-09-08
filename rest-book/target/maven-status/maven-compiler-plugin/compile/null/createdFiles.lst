@@ -1,0 +1,5 @@
+org/agoncal/fascicle/quarkus/book/exception/HttpConflictException.class
+org/agoncal/fascicle/quarkus/book/exception/HttpNotFoundException.class
+org/agoncal/fascicle/quarkus/book/exception/HttpBadResquestException.class
+org/agoncal/fascicle/quarkus/book/exception/HttpNoContentException.class
+org/agoncal/fascicle/quarkus/book/exception/HttpInternalServerException.class
