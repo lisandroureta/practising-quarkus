@@ -26,10 +26,6 @@ public class AccesoLibro implements PanacheRepositoryBase<Book,Integer> {
   NumberProxy numberProxy;
 
   public Book persistBook(@Valid Book book) {
-    IsbnNumbers isbnNumbers = numberProxy.generateIsbnNumbers();
-    book.isbn13 = isbnNumbers.getIsbn13();
-    book.isbn10 = isbnNumbers.getIsbn10();
-
     persist(book);
     return book;
   }

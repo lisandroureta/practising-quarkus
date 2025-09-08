@@ -1,82 +1,77 @@
 package org.agoncal.fascicle.quarkus.book.servicio;
 
-//import ar.gob.ushuaia.exception.HttpNoContentException;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import org.agoncal.fascicle.quarkus.book.acceso.AccesoLibro;
 import org.agoncal.fascicle.quarkus.book.client.IsbnNumbers;
 import org.agoncal.fascicle.quarkus.book.client.NumberProxy;
 import org.agoncal.fascicle.quarkus.book.modelo.Book;
-import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibro;
+import org.agoncal.fascicle.quarkus.book.transformador.TransformadorLibro;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.jboss.logging.Logger;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.json.bind.JsonbBuilder;
-import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
-@Transactional(Transactional.TxType.REQUIRED)
 public class ServicioLibro {
-  private static final Logger LOGGER = Logger.getLogger(ServicioLibro.class);
 
   @Inject
-  EntityManager em;
+  AccesoLibro accesoLibro;
+
+  @Inject
+  TransformadorLibro transformador;
 
   @Inject
   @RestClient
   NumberProxy numberProxy;
-  @Inject
-  AccesoLibro accesoLibro;
 
-  @Fallback(fallbackMethod = "fallbackPersistBook")
-  public Book persistBook(@Valid Book book) {
+  // Persistir libro desde DTO
+  public TransferibleLibro persistBook(@Valid TransferibleLibro dto) {
+    // Convertir DTO a entidad
+    Book book = transformador.toEntity(dto);
+
+    // Lógica de negocio: generar ISBN
     IsbnNumbers isbnNumbers = numberProxy.generateIsbnNumbers();
     book.isbn13 = isbnNumbers.getIsbn13();
     book.isbn10 = isbnNumbers.getIsbn10();
 
+    // Guardar en BD
     accesoLibro.persistBook(book);
-    return book;
+
+    // Convertir a DTO para devolver
+    return transformador.toTransferible(book);
   }
 
-  private Book fallbackPersistBook(Book book) throws FileNotFoundException {
-    LOGGER.warn("Falling back on persisting a book");
-    String bookJson = JsonbBuilder.create().toJson(book);
-    try (PrintWriter out = new PrintWriter("book-" + Instant.now().toEpochMilli() + ".json")) {
-      out.println(bookJson);
-    }
-    throw new IllegalStateException();
+  // Actualizar libro
+  public TransferibleLibro updateBook(@Valid TransferibleLibro dto) {
+    Book book = transformador.toEntity(dto);
+    accesoLibro.updateBook(book);
+    return transformador.toTransferible(book);
   }
 
-  @Transactional(Transactional.TxType.SUPPORTS)
-  public List<Book> findAllBooks() {
-    /*If(listalibros != null || !listalibros.isemptuy()){
-
-    }*/
-    return accesoLibro.findAllBooks();
+  // Buscar libro por ID
+  public Optional<TransferibleLibro> findBookById(Long id) {
+    Optional<Book> book = accesoLibro.findByIdOptional(Math.toIntExact(id));
+    return book.map(transformador::toTransferible);
   }
 
-  @Transactional(Transactional.TxType.SUPPORTS)
-  public Optional<Book> findBookById(Long id) {
-    return accesoLibro.findByIdOptional(Math.toIntExact(id));
+  // Buscar todos los libros
+  public List<TransferibleLibro> findAllBooks() {
+    List<Book> books = accesoLibro.listAll();
+    return transformador.toTransferibleList(books);
   }
 
-  @Transactional(Transactional.TxType.SUPPORTS)
-  public Book findRandomBook() {
-    return accesoLibro.findRandomBook();
-  }
-
-  public Book updateBook(@Valid Book book) {
-    return accesoLibro.updateBook(book);
-  }
-
+  // Borrar libro
   public void deleteBook(Long id) {
     accesoLibro.deleteById(Math.toIntExact(id));
+  }
+
+  // Buscar libro random
+  public TransferibleLibro findRandomBook() {
+    Book book = accesoLibro.findRandomBook();
+    return transformador.toTransferible(book);
   }
 }

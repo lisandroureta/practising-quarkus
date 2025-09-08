@@ -3,6 +3,8 @@ package org.agoncal.fascicle.quarkus.book.recurso;
 import io.quarkus.security.Authenticated;
 import org.agoncal.fascicle.quarkus.book.modelo.Book;
 import org.agoncal.fascicle.quarkus.book.servicio.ServicioLibro;
+import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibro;
+import org.agoncal.fascicle.quarkus.book.transformador.TransformadorLibro;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -47,6 +49,9 @@ public class RecursoLibro {
   @Inject
   ServicioLibro service;
 
+  @Inject
+  TransformadorLibro transformador;
+
   private static final Logger LOGGER = Logger.getLogger(RecursoLibro.class);
 
   @Operation(summary = "Returns a random book")
@@ -56,7 +61,7 @@ public class RecursoLibro {
   @GET
   @Path("/random")
   public Response getRandomBook() {
-    Book book = service.findRandomBook();
+    TransferibleLibro book = service.findRandomBook();
     LOGGER.debug("Found random book " + book);
     return Response.ok(book).build();
   }
@@ -68,7 +73,7 @@ public class RecursoLibro {
   @Timed(name = "timeGetAllBooks", description = "Times how long it takes to invoke the getAllBooks method", unit = MetricUnits.MILLISECONDS)
   @GET
   public Response getAllBooks() {
-    List<Book> books = service.findAllBooks();
+    List<TransferibleLibro> books = service.findAllBooks();
     LOGGER.debug("Total number of books " + books);
     return Response.ok(books).build();
   }
@@ -81,7 +86,7 @@ public class RecursoLibro {
   @GET
   @Path("/{id}")
   public Response getBook(@Parameter(description = "Book identifier", required = true) @PathParam("id") Long id) {
-    Optional<Book> book = service.findBookById(id);
+    Optional<TransferibleLibro> book = service.findBookById(id);
     if (book.isPresent()) {
       LOGGER.debug("Found book " + book);
       return Response.ok(book).build();
@@ -96,7 +101,7 @@ public class RecursoLibro {
   @Counted(name = "countCreateBook", description = "Counts how many times the createBook method has been invoked")
   @Timed(name = "timeCreateBook", description = "Times how long it takes to invoke the createBook method", unit = MetricUnits.MILLISECONDS)
   @POST
-  public Response createBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid Book book, @Context UriInfo uriInfo) {
+  public Response createBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid TransferibleLibro book, @Context UriInfo uriInfo) {
     book = service.persistBook(book);
     UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(book.id));
     LOGGER.debug("New book created with URI " + builder.build().toString());
@@ -108,7 +113,7 @@ public class RecursoLibro {
   @Counted(name = "countUpdateBook", description = "Counts how many times the updateBook method has been invoked")
   @Timed(name = "timeUpdateBook", description = "Times how long it takes to invoke the updateBook method", unit = MetricUnits.MILLISECONDS)
   @PUT
-  public Response updateBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid Book book) {
+  public Response updateBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid TransferibleLibro book) {
     book = service.updateBook(book);
     LOGGER.debug("Book updated with new valued " + book);
     return Response.ok(book).build();
