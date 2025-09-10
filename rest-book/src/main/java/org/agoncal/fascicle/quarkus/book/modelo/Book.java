@@ -1,39 +1,118 @@
 package org.agoncal.fascicle.quarkus.book.modelo;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.Random;
 
 @Schema(description = "Book representation")
 @Entity
 public class Book {
-  @Id
-  public long id;
-  @Schema(required = true)
-  public String title;
-  @Column(name = "isbn_13")
-  public String isbn13;
-  @Column(name = "isbn_10")
-  public String isbn10;
-  public String author;
-  @Column(name = "year_of_publication")
-  public Integer yearOfPublication;
-  @Column(name = "nb_of_pages")
-  public Integer nbOfPages;
-  public Integer rank;
-  public BigDecimal price;
-  @Column(name = "small_image_url")
-  public URL smallImageUrl;
-  @Column(name = "medium_image_url")
-  public URL mediumImageUrl;
-  @Column(length = 10000)
-  public String description;
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // el ID lo genera la BD
+  private Long id;
+  @Schema(required = true)
+  private String title;
+  @Column(name = "isbn_13")
+  private String isbn13;
+  @Column(name = "isbn_10")
+  private String isbn10;
+  private String author;
+  @Column(name = "year_of_publication")
+  private Integer yearOfPublication;
+  @Column(name = "nb_of_pages")
+  private Integer nbOfPages;
+  private Integer rank;
+  private BigDecimal price;
+  @Column(name = "small_image_url")
+  private URL smallImageUrl;
+  @Column(name = "medium_image_url")
+  private URL mediumImageUrl;
+  @Column(length = 10000)
+  private String description;
+
+  // ---------- Constructores ----------
+  public Book() {
+    // constructor vacío requerido por JPA
+  }
+  public Book(String title, String author) {
+    this.title = title;
+    this.author = author;
+  }
+
+  // ---------- Getters y Setters ----------
+  public Long getId() {
+    return id;
+  }
+  public void setId(Long id) {
+    this.id = id;
+  }
+  public String getTitle() {
+    return title;
+  }
+  public void setTitle(String title) {
+    this.title = title;
+  }
+  public String getIsbn13() {
+    return isbn13;
+  }
+  public void setIsbn13(String isbn13) {
+    this.isbn13 = isbn13;
+  }
+  public String getIsbn10() {
+    return isbn10;
+  }
+  public void setIsbn10(String isbn10) {
+    this.isbn10 = isbn10;
+  }
+  public String getAuthor() {
+    return author;
+  }
+  public void setAuthor(String author) {
+    this.author = author;
+  }
+  public Integer getYearOfPublication() {
+    return yearOfPublication;
+  }
+  public void setYearOfPublication(Integer yearOfPublication) {
+    this.yearOfPublication = yearOfPublication;
+  }
+  public Integer getNbOfPages() {
+    return nbOfPages;
+  }
+  public void setNbOfPages(Integer nbOfPages) {
+    this.nbOfPages = nbOfPages;
+  }
+  public Integer getRank() {
+    return rank;
+  }
+  public void setRank(Integer rank) {
+    this.rank = rank;
+  }
+  public BigDecimal getPrice() {
+    return price;
+  }
+  public void setPrice(BigDecimal price) {
+    this.price = price;
+  }
+  public URL getSmallImageUrl() {
+    return smallImageUrl;
+  }
+  public void setSmallImageUrl(URL smallImageUrl) {
+    this.smallImageUrl = smallImageUrl;
+  }
+  public URL getMediumImageUrl() {
+    return mediumImageUrl;
+  }
+  public void setMediumImageUrl(URL mediumImageUrl) {
+    this.mediumImageUrl = mediumImageUrl;
+  }
+  public String getDescription() {
+    return description;
+  }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 }

@@ -2,6 +2,7 @@ package org.agoncal.fascicle.quarkus.book.transformador;
 
 import org.agoncal.fascicle.quarkus.book.modelo.Book;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibro;
+import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibroCrear;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -9,15 +10,17 @@ import java.util.List;
 @Mapper(componentModel = "cdi")
 public interface TransformadorLibro {
 
-  // convierte una entidad en un DTO
+  // Entidad → DTO de salida
   TransferibleLibro toTransferible(Book book);
 
-  // convierte un DTO en una entidad
+  // DTO de salida → Entidad (rara vez usado, pero lo dejamos)
   Book toEntity(TransferibleLibro dto);
 
-  // Listas de DTOs a listas de Entidades
+  // DTO de entrada (crear) → Entidad
+  Book toEntity(TransferibleLibroCrear dto);
+
+  // Lista de entidades → lista de DTOs de salida
   List<TransferibleLibro> toTransferibleList(List<Book> books);
 
-  // Listas de Entidades a listas de DTOs
   List<Book> toEntityList(List<TransferibleLibro> transferibleLibroList);
 }

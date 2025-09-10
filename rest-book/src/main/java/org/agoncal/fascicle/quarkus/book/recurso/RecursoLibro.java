@@ -4,6 +4,7 @@ import io.quarkus.security.Authenticated;
 import org.agoncal.fascicle.quarkus.book.modelo.Book;
 import org.agoncal.fascicle.quarkus.book.servicio.ServicioLibro;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibro;
+import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibroCrear;
 import org.agoncal.fascicle.quarkus.book.transformador.TransformadorLibro;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
@@ -43,7 +44,7 @@ import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Tag(name = "Book Endpoint")
-@Authenticated //para la seguridad
+//@Authenticated //para la seguridad
 public class RecursoLibro {
 
   @Inject
@@ -53,6 +54,19 @@ public class RecursoLibro {
   TransformadorLibro transformador;
 
   private static final Logger LOGGER = Logger.getLogger(RecursoLibro.class);
+
+  @Operation(summary = "Creates a valid book")
+  @APIResponse(responseCode = "201", description = "The URI of the created book", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
+  @Counted(name = "countCreateBook", description = "Counts how many times the createBook method has been invoked")
+  @Timed(name = "timeCreateBook", description = "Times how long it takes to invoke the createBook method", unit = MetricUnits.MILLISECONDS)
+  @POST
+  public Response createBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibroCrear.class))) @Valid TransferibleLibroCrear dto, @Context UriInfo uriInfo) {
+    TransferibleLibro libroCreado = service.persistBook(dto);
+    UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(libroCreado.getId()));
+    LOGGER.debug("New book created with URI " + builder.build().toString());
+    return Response.created(builder.build()).entity(libroCreado).build();
+  }
+
 
   @Operation(summary = "Returns a random book")
   @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class)))
@@ -94,18 +108,6 @@ public class RecursoLibro {
       LOGGER.debug("No book found with id " + id);
       return Response.status(NOT_FOUND).build();
     }
-  }
-
-  @Operation(summary = "Creates a valid book")
-  @APIResponse(responseCode = "201", description = "The URI of the created book", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = URI.class)))
-  @Counted(name = "countCreateBook", description = "Counts how many times the createBook method has been invoked")
-  @Timed(name = "timeCreateBook", description = "Times how long it takes to invoke the createBook method", unit = MetricUnits.MILLISECONDS)
-  @POST
-  public Response createBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid TransferibleLibro book, @Context UriInfo uriInfo) {
-    book = service.persistBook(book);
-    UriBuilder builder = uriInfo.getAbsolutePathBuilder().path(Long.toString(book.id));
-    LOGGER.debug("New book created with URI " + builder.build().toString());
-    return Response.created(builder.build()).build();
   }
 
   @Operation(summary = "Updates an existing  book")

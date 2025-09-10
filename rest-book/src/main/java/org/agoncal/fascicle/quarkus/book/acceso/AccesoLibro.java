@@ -5,6 +5,7 @@ import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.agoncal.fascicle.quarkus.book.client.IsbnNumbers;
 import org.agoncal.fascicle.quarkus.book.client.NumberProxy;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @RequestScoped
+@Transactional(Transactional.TxType.REQUIRED) // por defecto los métodos de escritura tienen transacción
 public class AccesoLibro implements PanacheRepositoryBase<Book,Integer> {
 
   @Inject
@@ -25,19 +27,23 @@ public class AccesoLibro implements PanacheRepositoryBase<Book,Integer> {
   @RestClient
   NumberProxy numberProxy;
 
+  @Transactional
   public Book persistBook(@Valid Book book) {
     persist(book);
     return book;
   }
 
+  @Transactional(Transactional.TxType.SUPPORTS) // si hay una transacción activa la usa, si no hay, no abre ninguna (perfecto para consultas de solo lectura)
   public List<Book> findAllBooks() {
     return listAll();
   }
 
+  @Transactional(Transactional.TxType.SUPPORTS)
   public Optional<Book> findBookById(Long id) {
     return findByIdOptional(Math.toIntExact(id));
   }
 
+  @Transactional(Transactional.TxType.SUPPORTS)
   public Book findRandomBook() {
     long countBooks = count();
     if (countBooks == 0){

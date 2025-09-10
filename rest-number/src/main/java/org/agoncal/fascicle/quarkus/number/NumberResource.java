@@ -24,7 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @Path("/api/numbers/book")
 @Tag(name = "Number Endpoint")
-@Authenticated
+//@Authenticated
 public class NumberResource {
 
   private static final Logger LOGGER = Logger.getLogger(NumberResource.class.getName());

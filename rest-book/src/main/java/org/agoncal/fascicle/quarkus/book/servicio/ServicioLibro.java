@@ -8,6 +8,7 @@ import org.agoncal.fascicle.quarkus.book.client.IsbnNumbers;
 import org.agoncal.fascicle.quarkus.book.client.NumberProxy;
 import org.agoncal.fascicle.quarkus.book.modelo.Book;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibro;
+import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibroCrear;
 import org.agoncal.fascicle.quarkus.book.transformador.TransformadorLibro;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -28,22 +29,23 @@ public class ServicioLibro {
   @RestClient
   NumberProxy numberProxy;
 
-  // Persistir libro desde DTO
-  public TransferibleLibro persistBook(@Valid TransferibleLibro dto) {
-    // Convertir DTO a entidad
+  // Persistir libro desde DTO de entrada
+  public TransferibleLibro persistBook(@Valid TransferibleLibroCrear dto) {
+    // Convertir DTO de entrada a entidad
     Book book = transformador.toEntity(dto);
 
     // Lógica de negocio: generar ISBN
     IsbnNumbers isbnNumbers = numberProxy.generateIsbnNumbers();
-    book.isbn13 = isbnNumbers.getIsbn13();
-    book.isbn10 = isbnNumbers.getIsbn10();
+    book.setIsbn13(isbnNumbers.getIsbn13());
+    book.setIsbn10(isbnNumbers.getIsbn10());
 
     // Guardar en BD
     accesoLibro.persistBook(book);
 
-    // Convertir a DTO para devolver
+    // Convertir entidad persistida a DTO de salida
     return transformador.toTransferible(book);
   }
+
 
   // Actualizar libro
   public TransferibleLibro updateBook(@Valid TransferibleLibro dto) {

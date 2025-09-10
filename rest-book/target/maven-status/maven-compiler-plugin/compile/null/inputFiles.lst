@@ -15,4 +15,5 @@
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/recurso/RecursoLibro.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/servicio/ServicioLibro.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/transferible/TransferibleLibro.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/transferible/TransferibleLibroCrear.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/transformador/TransformadorLibro.java
