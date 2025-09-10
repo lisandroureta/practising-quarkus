@@ -3,6 +3,7 @@ package org.agoncal.fascicle.quarkus.book.servicio;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.NotFoundException;
 import org.agoncal.fascicle.quarkus.book.acceso.AccesoLibro;
 import org.agoncal.fascicle.quarkus.book.client.IsbnNumbers;
 import org.agoncal.fascicle.quarkus.book.client.NumberProxy;
@@ -48,11 +49,29 @@ public class ServicioLibro {
 
 
   // Actualizar libro
-  public TransferibleLibro updateBook(@Valid TransferibleLibro dto) {
-    Book book = transformador.toEntity(dto);
-    accesoLibro.updateBook(book);
-    return transformador.toTransferible(book);
+  public TransferibleLibro updateBook(Long id, @Valid TransferibleLibroCrear dto) {
+    // Buscar el libro existente en la BD
+    Book existente = accesoLibro.findBookById(id)
+      .orElseThrow(() -> new NotFoundException("Libro con id " + id + " no encontrado"));
+
+    // Actualizar campos con los valores del DTO
+    existente.setTitle(dto.getTitle());
+    existente.setAuthor(dto.getAuthor());
+    existente.setYearOfPublication(dto.getYearOfPublication());
+    existente.setNbOfPages(dto.getNbOfPages());
+    existente.setRank(dto.getRank());
+    existente.setPrice(dto.getPrice());
+    existente.setSmallImageUrl(dto.getSmallImageUrl());
+    existente.setMediumImageUrl(dto.getMediumImageUrl());
+    existente.setDescription(dto.getDescription());
+
+    // Guardar cambios en la BD
+    Book actualizado = accesoLibro.updateBook(existente);
+
+    // Convertir entidad a DTO de salida
+    return transformador.toTransferible(actualizado);
   }
+
 
   // Buscar libro por ID
   public Optional<TransferibleLibro> findBookById(Long id) {

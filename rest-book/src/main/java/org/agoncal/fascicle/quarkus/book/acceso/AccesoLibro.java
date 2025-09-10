@@ -28,19 +28,19 @@ public class AccesoLibro implements PanacheRepositoryBase<Book,Integer> {
   NumberProxy numberProxy;
 
   @Transactional
-  public Book persistBook(@Valid Book book) {
+  public Book persistBook(Book book) {
     persist(book);
     return book;
   }
 
-  @Transactional(Transactional.TxType.SUPPORTS) // si hay una transacción activa la usa, si no hay, no abre ninguna (perfecto para consultas de solo lectura)
+  @Transactional(Transactional.TxType.SUPPORTS)
   public List<Book> findAllBooks() {
     return listAll();
   }
 
   @Transactional(Transactional.TxType.SUPPORTS)
   public Optional<Book> findBookById(Long id) {
-    return findByIdOptional(Math.toIntExact(id));
+    return findByIdOptional(Math.toIntExact(id)); // ahora usa Long directamente
   }
 
   @Transactional(Transactional.TxType.SUPPORTS)
@@ -53,12 +53,13 @@ public class AccesoLibro implements PanacheRepositoryBase<Book,Integer> {
     return findAll().page(randomBook, 1).firstResult();
   }
 
-  public Book updateBook(@Valid Book book) {
+  @Transactional
+  public Book updateBook(Book book) {
     return em.merge(book);
   }
 
+  @Transactional
   public void deleteBook(Long id) {
-    deleteById(Math.toIntExact(id));
+    deleteById(Math.toIntExact(id)); // usa Long directamente
   }
-
 }

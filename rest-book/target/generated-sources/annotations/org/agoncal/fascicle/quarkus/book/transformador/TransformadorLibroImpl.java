@@ -73,7 +73,16 @@ public class TransformadorLibroImpl implements TransformadorLibro {
         Book book = new Book();
 
         book.setTitle( dto.getTitle() );
+        book.setIsbn13( dto.getIsbn13() );
+        book.setIsbn10( dto.getIsbn10() );
         book.setAuthor( dto.getAuthor() );
+        book.setYearOfPublication( dto.getYearOfPublication() );
+        book.setNbOfPages( dto.getNbOfPages() );
+        book.setRank( dto.getRank() );
+        book.setPrice( dto.getPrice() );
+        book.setSmallImageUrl( dto.getSmallImageUrl() );
+        book.setMediumImageUrl( dto.getMediumImageUrl() );
+        book.setDescription( dto.getDescription() );
 
         return book;
     }

@@ -1,6 +1,7 @@
 package org.agoncal.fascicle.quarkus.book.recurso;
 
 import io.quarkus.security.Authenticated;
+import jakarta.ws.rs.*;
 import org.agoncal.fascicle.quarkus.book.modelo.Book;
 import org.agoncal.fascicle.quarkus.book.servicio.ServicioLibro;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibro;
@@ -21,14 +22,6 @@ import org.jboss.logging.Logger;
 
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -50,9 +43,6 @@ public class RecursoLibro {
   @Inject
   ServicioLibro service;
 
-  @Inject
-  TransformadorLibro transformador;
-
   private static final Logger LOGGER = Logger.getLogger(RecursoLibro.class);
 
   @Operation(summary = "Creates a valid book")
@@ -67,9 +57,8 @@ public class RecursoLibro {
     return Response.created(builder.build()).entity(libroCreado).build();
   }
 
-
   @Operation(summary = "Returns a random book")
-  @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class)))
+  @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
   @Counted(name = "countGetRandomBook", description = "Counts how many times the getRandomBook method has been invoked")
   @Timed(name = "timeGetRandomBook", description = "Times how long it takes to invoke the getRandomBook method", unit = MetricUnits.MILLISECONDS)
   @GET
@@ -81,7 +70,7 @@ public class RecursoLibro {
   }
 
   @Operation(summary = "Returns all the books from the database")
-  @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class, type = SchemaType.ARRAY)))
+  @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class, type = SchemaType.ARRAY)))
   @APIResponse(responseCode = "204", description = "No books")
   @Counted(name = "countGetAllBooks", description = "Counts how many times the getAllBooks method has been invoked")
   @Timed(name = "timeGetAllBooks", description = "Times how long it takes to invoke the getAllBooks method", unit = MetricUnits.MILLISECONDS)
@@ -93,7 +82,7 @@ public class RecursoLibro {
   }
 
   @Operation(summary = "Returns a book for a given identifier")
-  @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class)))
+  @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransformadorLibro.class)))
   @APIResponse(responseCode = "404", description = "The book is not found for the given identifier")
   @Counted(name = "countGetBook", description = "Counts how many times the getBook method has been invoked")
   @Timed(name = "timeGetBook", description = "Times how long it takes to invoke the getBook method", unit = MetricUnits.MILLISECONDS)
@@ -111,14 +100,15 @@ public class RecursoLibro {
   }
 
   @Operation(summary = "Updates an existing  book")
-  @APIResponse(responseCode = "200", description = "The updated book", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class)))
+  @APIResponse(responseCode = "200", description = "The updated book", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
   @Counted(name = "countUpdateBook", description = "Counts how many times the updateBook method has been invoked")
   @Timed(name = "timeUpdateBook", description = "Times how long it takes to invoke the updateBook method", unit = MetricUnits.MILLISECONDS)
   @PUT
-  public Response updateBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Book.class))) @Valid TransferibleLibro book) {
-    book = service.updateBook(book);
-    LOGGER.debug("Book updated with new valued " + book);
-    return Response.ok(book).build();
+  @Path("/{id}")
+  public Response updateBook(@RequestBody(required = true, content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibroCrear.class))) @PathParam("id") Long id, @Valid TransferibleLibroCrear dto) {
+    TransferibleLibro actualizado = service.updateBook(id, dto);
+    LOGGER.debug("Book updated with new valued " + actualizado);
+    return Response.ok(actualizado).build();
   }
 
   @Operation(summary = "Deletes an existing book")
