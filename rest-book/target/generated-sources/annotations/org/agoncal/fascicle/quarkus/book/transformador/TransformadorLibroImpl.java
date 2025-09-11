@@ -10,7 +10,7 @@ import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibroCrear;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-09-10T09:32:16-0300",
+    date = "2025-09-11T08:16:49-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (GraalVM Community)"
 )
 @ApplicationScoped

@@ -82,7 +82,7 @@ public class RecursoLibro {
   }
 
   @Operation(summary = "Returns a book for a given identifier")
-  @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransformadorLibro.class)))
+  @APIResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
   @APIResponse(responseCode = "404", description = "The book is not found for the given identifier")
   @Counted(name = "countGetBook", description = "Counts how many times the getBook method has been invoked")
   @Timed(name = "timeGetBook", description = "Times how long it takes to invoke the getBook method", unit = MetricUnits.MILLISECONDS)
