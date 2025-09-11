@@ -5,6 +5,10 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Schema(description = "Book representation")
 @Entity
@@ -19,7 +23,6 @@ public class Book {
   private String isbn13;
   @Column(name = "isbn_10")
   private String isbn10;
-  private String author;
   @Column(name = "year_of_publication")
   private Integer yearOfPublication;
   @Column(name = "nb_of_pages")
@@ -33,13 +36,28 @@ public class Book {
   @Column(length = 10000)
   private String description;
 
+  // ---------------- Relaciones nuevas ----------------
+
+  // muchos a muchos con Autores -> usamos tabla intermedia book_author
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+  private Set<Author> authors = new HashSet<>();
+
+  // muchos a uno a Category (un libro tiene 1 categoria)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category_id")
+  private Category category;
+
+  // un libro tiene muchos comentarios
+  @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Comment> comments = new ArrayList<>();
+
   // ---------- Constructores ----------
   public Book() {
     // constructor vacío requerido por JPA
   }
   public Book(String title, String author) {
     this.title = title;
-    this.author = author;
   }
 
   // ---------- Getters y Setters ----------
@@ -66,12 +84,6 @@ public class Book {
   }
   public void setIsbn10(String isbn10) {
     this.isbn10 = isbn10;
-  }
-  public String getAuthor() {
-    return author;
-  }
-  public void setAuthor(String author) {
-    this.author = author;
   }
   public Integer getYearOfPublication() {
     return yearOfPublication;
@@ -114,5 +126,33 @@ public class Book {
   }
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  // ---------- Relaciones getters/setters ----------
+  public Set<Author> getAuthors() { return authors; }
+  public void setAuthors(Set<Author> authors) { this.authors = authors; }
+
+  public Category getCategory() { return category; }
+  public void setCategory(Category category) { this.category = category; }
+
+  public List<Comment> getComments() { return comments; }
+  public void setComments(List<Comment> comments) { this.comments = comments; }
+
+  // helpers para mantener la bidireccionalidad limpia
+  public void addAuthor(Author author) {
+    this.authors.add(author);
+    author.getBooks().add(this);
+  }
+  public void removeAuthor(Author author) {
+    this.authors.remove(author);
+    author.getBooks().remove(this);
+  }
+  public void addComment(Comment comment) {
+    comments.add(comment);
+    comment.setBook(this);
+  }
+  public void removeComment(Comment comment) {
+    comments.remove(comment);
+    comment.setBook(null);
   }
 }

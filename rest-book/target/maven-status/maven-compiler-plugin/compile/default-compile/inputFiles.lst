@@ -11,7 +11,10 @@
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/exception/HttpNotFoundException.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/health/DatabaseConnectionHealthCheck.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/health/PingBookResourceHealthCheck.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/modelo/Author.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/modelo/Book.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/modelo/Category.java
+/home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/modelo/Comment.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/recurso/RecursoLibro.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/servicio/ServicioLibro.java
 /home/informatica/Escritorio/agoncal-fascicle-quarkus-practising-1.0-SNAPSHOT/rest-book/src/main/java/org/agoncal/fascicle/quarkus/book/transferible/TransferibleLibro.java

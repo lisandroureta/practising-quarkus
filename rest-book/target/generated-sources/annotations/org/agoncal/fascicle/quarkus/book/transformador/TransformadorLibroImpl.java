@@ -10,7 +10,7 @@ import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibroCrear;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-09-11T08:16:49-0300",
+    date = "2025-09-11T10:35:45-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (GraalVM Community)"
 )
 @ApplicationScoped
@@ -28,7 +28,6 @@ public class TransformadorLibroImpl implements TransformadorLibro {
         transferibleLibro.setTitle( book.getTitle() );
         transferibleLibro.setIsbn13( book.getIsbn13() );
         transferibleLibro.setIsbn10( book.getIsbn10() );
-        transferibleLibro.setAuthor( book.getAuthor() );
         transferibleLibro.setYearOfPublication( book.getYearOfPublication() );
         transferibleLibro.setNbOfPages( book.getNbOfPages() );
         transferibleLibro.setRank( book.getRank() );
@@ -52,7 +51,6 @@ public class TransformadorLibroImpl implements TransformadorLibro {
         book.setTitle( dto.getTitle() );
         book.setIsbn13( dto.getIsbn13() );
         book.setIsbn10( dto.getIsbn10() );
-        book.setAuthor( dto.getAuthor() );
         book.setYearOfPublication( dto.getYearOfPublication() );
         book.setNbOfPages( dto.getNbOfPages() );
         book.setRank( dto.getRank() );
@@ -75,7 +73,6 @@ public class TransformadorLibroImpl implements TransformadorLibro {
         book.setTitle( dto.getTitle() );
         book.setIsbn13( dto.getIsbn13() );
         book.setIsbn10( dto.getIsbn10() );
-        book.setAuthor( dto.getAuthor() );
         book.setYearOfPublication( dto.getYearOfPublication() );
         book.setNbOfPages( dto.getNbOfPages() );
         book.setRank( dto.getRank() );

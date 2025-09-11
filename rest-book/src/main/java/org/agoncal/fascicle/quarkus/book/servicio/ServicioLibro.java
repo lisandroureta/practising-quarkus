@@ -56,7 +56,7 @@ public class ServicioLibro {
 
     // Actualizar campos con los valores del DTO
     existente.setTitle(dto.getTitle());
-    existente.setAuthor(dto.getAuthor());
+    //existente.setAuthor(dto.getAuthor());
     existente.setYearOfPublication(dto.getYearOfPublication());
     existente.setNbOfPages(dto.getNbOfPages());
     existente.setRank(dto.getRank());
