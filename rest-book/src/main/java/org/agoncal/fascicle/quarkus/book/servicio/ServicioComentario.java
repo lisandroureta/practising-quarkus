@@ -3,15 +3,19 @@ package org.agoncal.fascicle.quarkus.book.servicio;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
 import org.agoncal.fascicle.quarkus.book.acceso.AccesoComentario;
 import org.agoncal.fascicle.quarkus.book.acceso.AccesoLibro;
 import org.agoncal.fascicle.quarkus.book.modelo.Book;
 import org.agoncal.fascicle.quarkus.book.modelo.Comment;
+import org.agoncal.fascicle.quarkus.book.transferible.TransferibleCategoria;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleComentario;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleComentarioCrear;
+import org.agoncal.fascicle.quarkus.book.transferible.TransferibleLibro;
 import org.agoncal.fascicle.quarkus.book.transformador.TransformadorComentario;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class ServicioComentario {
@@ -27,13 +31,13 @@ public class ServicioComentario {
 
   // Crear comentario
   @Transactional
-  public TransferibleComentario createComentario(Long bookId, TransferibleComentarioCrear dto) {
+  public TransferibleComentario createComentario(TransferibleComentarioCrear dto) {
     // Convertir DTO de entrada a entidad
     Comment comment = transformador.toEntity(dto);
 
-    // Buscar el libro por id (viene por URL)
-    Book book = accesoLibro.findBookById(bookId)
-      .orElseThrow(() -> new IllegalArgumentException("El libro con id " + bookId + " no existe"));
+    // Buscar el libro por id (el bookId viene en el body del dto)
+    Book book = accesoLibro.findBookById(dto.getBookId())
+      .orElseThrow(() -> new NotFoundException("Libro no encontrado con id " + dto.getBookId()));
 
     // Asociar el libro al comentario
     comment.setBook(book);
@@ -53,10 +57,9 @@ public class ServicioComentario {
 
   // Buscar comentario por id
   @Transactional(Transactional.TxType.SUPPORTS)
-  public TransferibleComentario findComentarioById(Long id) {
-    Comment comment = accesoComentario.findCommentById(id)
-      .orElseThrow(() -> new IllegalArgumentException("Comentario no encontrado con id " + id));
-    return transformador.toTransferible(comment);
+  public Optional<TransferibleComentario> findComentarioById(Long id) {
+    return accesoComentario.findCommentById(id)
+      .map(transformador::toTransferible);
   }
 
   // Actualizar comentario

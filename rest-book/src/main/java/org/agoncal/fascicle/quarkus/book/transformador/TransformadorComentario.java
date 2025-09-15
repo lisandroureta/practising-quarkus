@@ -4,6 +4,7 @@ import org.agoncal.fascicle.quarkus.book.modelo.Comment;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleComentario;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleComentarioCrear;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 

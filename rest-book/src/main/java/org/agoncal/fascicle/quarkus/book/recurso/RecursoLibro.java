@@ -99,7 +99,7 @@ public class RecursoLibro {
     }
   }
 
-  @Operation(summary = "Updates an existing  book")
+  @Operation(summary = "Updates an existing book")
   @APIResponse(responseCode = "200", description = "The updated book", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
   @Counted(name = "countUpdateBook", description = "Counts how many times the updateBook method has been invoked")
   @Timed(name = "timeUpdateBook", description = "Times how long it takes to invoke the updateBook method", unit = MetricUnits.MILLISECONDS)

@@ -5,11 +5,13 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.agoncal.fascicle.quarkus.book.acceso.AccesoCategoria;
 import org.agoncal.fascicle.quarkus.book.modelo.Category;
+import org.agoncal.fascicle.quarkus.book.transferible.TransferibleAutor;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleCategoria;
 import org.agoncal.fascicle.quarkus.book.transferible.TransferibleCategoriaCrear;
 import org.agoncal.fascicle.quarkus.book.transformador.TransformadorCategoria;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class ServicioCategoria {
@@ -47,12 +49,11 @@ public class ServicioCategoria {
     return transformador.toTransferibleList(categorias);
   }
 
-  // Buscar por id
+  // Buscar autor por id
   @Transactional(Transactional.TxType.SUPPORTS)
-  public TransferibleCategoria findCategoriaById(Long id) {
-    Category category = accesoCategoria.findCategoriaById(id)
-      .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada con id " + id));
-    return transformador.toTransferible(category);
+  public Optional<TransferibleCategoria> findCategoriaById(Long id) {
+    return accesoCategoria.findCategoriaById(id)
+      .map(transformador::toTransferible);
   }
 
   // Actualizar categoría

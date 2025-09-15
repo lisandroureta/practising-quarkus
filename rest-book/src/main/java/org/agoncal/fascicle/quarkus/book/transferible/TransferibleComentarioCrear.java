@@ -4,6 +4,7 @@ public class TransferibleComentarioCrear {
   private String email;
   private String texto;
   private Integer puntuacion;
+  private Long bookId;
 
   // ---------- Constructores ----------
   public TransferibleComentarioCrear() {
@@ -35,5 +36,11 @@ public class TransferibleComentarioCrear {
   }
   public void setPuntuacion(Integer puntuacion) {
     this.puntuacion = puntuacion;
+  }
+  public Long getBookId() {
+    return bookId;
+  }
+  public void setBookId(Long bookId) {
+    this.bookId = bookId;
   }
 }
