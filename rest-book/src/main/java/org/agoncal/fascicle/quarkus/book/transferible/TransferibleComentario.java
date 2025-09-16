@@ -5,16 +5,18 @@ public class TransferibleComentario {
   private String email;
   private String texto;
   private Integer puntuacion;
+  private Long bookId;
 
   // ---------- Constructores ----------
   public TransferibleComentario() {
   }
 
-  public TransferibleComentario(Long id, String email, String texto, Integer puntuacion) {
+  public TransferibleComentario(Long id, String email, String texto, Integer puntuacion, Long bookId) {
     this.id = id;
     this.email = email;
     this.texto = texto;
     this.puntuacion = puntuacion;
+    this.bookId = bookId;
   }
 
   // ---------- Getters y Setters ----------
@@ -44,5 +46,11 @@ public class TransferibleComentario {
   }
   public void setPuntuacion(Integer puntuacion) {
     this.puntuacion = puntuacion;
+  }
+  public Long getBookId() {
+    return bookId;
+  }
+  public void setBookId(Long bookId) {
+    this.bookId = bookId;
   }
 }

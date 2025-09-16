@@ -10,8 +10,8 @@ import org.agoncal.fascicle.quarkus.book.transferible.TransferibleAutorCrear;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-09-15T10:45:39-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.9 (GraalVM Community)"
+    date = "2025-09-16T12:48:44-0300",
+    comments = "version: 1.6.0, compiler: javac, environment: Java 17.0.9 (GraalVM Community)"
 )
 @ApplicationScoped
 public class TransformadorAutorImpl implements TransformadorAutor {

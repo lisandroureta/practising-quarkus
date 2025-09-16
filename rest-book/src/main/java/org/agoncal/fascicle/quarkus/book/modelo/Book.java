@@ -38,13 +38,21 @@ public class Book {
 
   // ---------------- Relaciones nuevas ----------------
 
+  public List<Author> getAuthors() {
+    return authors;
+  }
+
+  public void setAuthors(List<Author> authors) {
+    this.authors = authors;
+  }
+
   // muchos a muchos con Autores -> usamos tabla intermedia book_author
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
-  private Set<Author> authors = new HashSet<>();
+  private List<Author> authors = new ArrayList<>();
 
   // muchos a uno a Category (un libro tiene 1 categoria)
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "category_id")
   private Category category;
 
@@ -129,9 +137,14 @@ public class Book {
   }
 
   // ---------- Relaciones getters/setters ----------
-  public Set<Author> getAuthors() { return authors; }
-  public void setAuthors(Set<Author> authors) { this.authors = authors; }
-
+  /*
+  public Set<Author> getAuthors() {
+    return authors;
+  }
+  public void setAuthors(Set<Author> authors) {
+    this.authors = authors;
+  }
+*/
   public Category getCategory() { return category; }
   public void setCategory(Category category) { this.category = category; }
 

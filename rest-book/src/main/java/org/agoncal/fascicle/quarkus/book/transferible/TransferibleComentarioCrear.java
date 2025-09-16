@@ -10,10 +10,11 @@ public class TransferibleComentarioCrear {
   public TransferibleComentarioCrear() {
   }
 
-  public TransferibleComentarioCrear(String email, String texto, Integer puntuacion) {
+  public TransferibleComentarioCrear(String email, String texto, Integer puntuacion, Long bookId) {
     this.email = email;
     this.texto = texto;
     this.puntuacion = puntuacion;
+    this.bookId = bookId;
   }
 
   // ---------- Getters y Setters ----------

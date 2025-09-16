@@ -59,4 +59,14 @@ public class Author {
     this.books.remove(book);
     book.getAuthors().remove(this);
   }
+
+  @Override
+  public String toString() {
+    return "Author{" +
+      "id=" + id +
+      ", nombre='" + nombre + '\'' +
+      ", apellido='" + apellido + '\'' +
+      ", nacionalidad='" + nacionalidad + '\'' +
+      '}';
+  }
 }

@@ -20,6 +20,7 @@
     <version.java>17</version.java>
     <quarkus-plugin.version>3.15.0</quarkus-plugin.version>
     <quarkus.platform.version>3.15.0</quarkus.platform.version>
+    <mapstruct.version>1.6.0</mapstruct.version>
     <javafaker.version>1.0.2</javafaker.version>
     <testcontainers.version>1.20.3</testcontainers.version>
     <surefire-plugin.version>3.2.3</surefire-plugin.version>
@@ -44,6 +45,17 @@
         <version>${quarkus.platform.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct-processor</artifactId>
+        <version>${mapstruct.version}</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>com.github.javafaker</groupId>
@@ -73,6 +85,15 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${compiler-plugin.version}</version>
+          <configuration>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+              </path>
+            </annotationProcessorPaths>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>

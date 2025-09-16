@@ -5,13 +5,13 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 
 public class TransferibleLibro {
   private Long id;
   private String title;
   private String isbn13;
   private String isbn10;
-  private String author;
   private Integer yearOfPublication;
   private Integer nbOfPages;
   private Integer rank;
@@ -19,6 +19,8 @@ public class TransferibleLibro {
   private URL smallImageUrl;
   private URL mediumImageUrl;
   private String description;
+  private String categoryName;
+  private List<TransferibleAutor> authors;
 
   public Long getId() {
     return id;
@@ -43,12 +45,6 @@ public class TransferibleLibro {
   }
   public void setIsbn10(String isbn10) {
     this.isbn10 = isbn10;
-  }
-  public String getAuthor() {
-    return author;
-  }
-  public void setAuthor(String author) {
-    this.author = author;
   }
   public Integer getYearOfPublication() {
     return yearOfPublication;
@@ -91,5 +87,17 @@ public class TransferibleLibro {
   }
   public void setDescription(String description) {
     this.description = description;
+  }
+  public String getCategoryName() {
+    return categoryName;
+  }
+  public void setCategoryName(String categoryName) {
+    this.categoryName = categoryName;
+  }
+  public List<TransferibleAutor> getAuthors() {
+    return authors;
+  }
+  public void setAuthors(List<TransferibleAutor> authors) {
+    this.authors = authors;
   }
 }
