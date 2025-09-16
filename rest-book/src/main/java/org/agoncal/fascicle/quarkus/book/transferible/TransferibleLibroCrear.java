@@ -41,7 +41,7 @@ public class TransferibleLibroCrear {
   public List<Long> getAuthorIds() {
     return authorIds;
   }
-  public void setAuthorsIds(List<Long> authorIds) {
+  public void setAuthorIds(List<Long> authorIds) {
     this.authorIds = authorIds;
   }
   public Long getCategoryId() { return categoryId; }

@@ -144,4 +144,11 @@ public class ServicioLibro {
     Book book = accesoLibro.findRandomBook();
     return transformador.toTransferible(book);
   }
+
+  // Buscar libros por autor ID
+  public List<TransferibleLibro> findBooksByAuthorId(Long authorId) {
+    List<Book> books = accesoLibro.findBooksByAuthorId(authorId);
+    return transformador.toTransferibleList(books);
+  }
+
 }

@@ -124,6 +124,16 @@ public class RecursoLibro {
   }
 
   @GET
+  @Path("/author/{authorId}")
+  @Operation(summary = "Get all books by a specific author")
+  @APIResponse(responseCode = "200", description = "Author's book list", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TransferibleLibro.class)))
+  public Response getBooksByAuthor(@PathParam("authorId") Long authorId) {
+    List<TransferibleLibro> libros = service.findBooksByAuthorId(authorId);
+    return Response.ok(libros).build();
+  }
+
+
+  @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/ping")
   public String ping() {

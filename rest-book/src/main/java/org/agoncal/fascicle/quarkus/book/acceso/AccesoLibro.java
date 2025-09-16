@@ -62,4 +62,15 @@ public class AccesoLibro implements PanacheRepositoryBase<Book,Integer> {
   public void deleteBook(Long id) {
     deleteById(Math.toIntExact(id)); // usa Long directamente
   }
+
+  // Cuando necesitamos un metodo especifico tenemos que escribir una query en JPQL (el SQL de JPA, digamos),
+  // no nos alcanza con los métodos que ya trae Panache (listAll(), findByIdOptional(), etc.).
+  @Transactional(Transactional.TxType.SUPPORTS)
+  public List<Book> findBooksByAuthorId(Long authorId) {
+    return em.createQuery(
+        "SELECT b FROM Book b JOIN b.authors a WHERE a.id = :authorId", Book.class)
+      .setParameter("authorId", authorId) // acá le pasamos el parámetro a la query
+      .getResultList(); // esto devuelve la lista de libros encontrados
+  }
+
 }
