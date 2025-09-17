@@ -81,6 +81,15 @@ public class AccesoLibro implements PanacheRepositoryBase<Book,Integer> {
       .getResultList();
   }
 
-
+  @Transactional(Transactional.TxType.SUPPORTS)
+  public List<Book> findBooksByMinRating(double minScore) {
+    return em.createQuery(
+        "SELECT b FROM Book b " +
+          "JOIN b.comments c " +
+          "GROUP BY b " +
+          "HAVING AVG(c.puntuacion) > :minScore", Book.class)
+      .setParameter("minScore", minScore)
+      .getResultList();
+  }
 
 }

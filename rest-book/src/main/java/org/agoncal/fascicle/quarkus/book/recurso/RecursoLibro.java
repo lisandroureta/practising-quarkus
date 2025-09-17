@@ -142,6 +142,17 @@ public class RecursoLibro {
   }
 
   @GET
+  @Path("/rating/{score}")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Operation(summary = "Get books with an average score higher than indicated")
+  @APIResponse(responseCode = "200", description = "List of books filtered by score")
+  public Response getBooksByMinRating(@PathParam("score") double minScore) {
+    List<TransferibleLibro> books = service.findBooksByMinRating(minScore);
+    return Response.ok(books).build();
+  }
+
+
+  @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Path("/ping")
   public String ping() {

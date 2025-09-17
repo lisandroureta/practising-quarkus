@@ -177,4 +177,13 @@ public class ServicioLibro {
     }
   }
 
+  // Buscar libros con puntuación promedio mayor a la enviada por parámetro
+  public List<TransferibleLibro> findBooksByMinRating(double minScore) {
+    // Llamamos al acceso para traer los libros que cumplen la condición
+    List<Book> books = accesoLibro.findBooksByMinRating(minScore);
+
+    // Transformamos a DTO para exponer en el recurso
+    return transformador.toTransferibleList(books);
+  }
+
 }
