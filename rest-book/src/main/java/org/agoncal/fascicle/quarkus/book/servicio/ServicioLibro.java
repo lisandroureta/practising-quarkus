@@ -151,4 +151,30 @@ public class ServicioLibro {
     return transformador.toTransferibleList(books);
   }
 
+  // Buscar libros por categoría
+  public List<TransferibleLibro> findBooksByCategory(Long categoryId) {
+    Category category = accesoCategoria.findById(categoryId);
+    if (category == null) {
+      throw new NotFoundException("Categoría no encontrada con id " + categoryId);
+    }
+
+    // Recolectar categoría (principal + subcategorías) con un método auxiliar recursivo
+    List<Category> categories = new ArrayList<>();
+    collectSubcategories(category, categories);
+
+    // Llamar al acceso para traer libros de esas categorías
+    List<Book> books = accesoLibro.findBooksByCategories(categories);
+
+    // Transformar a DTOs
+    return transformador.toTransferibleList(books);
+  }
+
+  // método auxiliar recursivo
+  private void collectSubcategories(Category category, List<Category> categories) {
+    categories.add(category);
+    for (Category sub : category.getSubcategories()) {
+      collectSubcategories(sub, categories);
+    }
+  }
+
 }

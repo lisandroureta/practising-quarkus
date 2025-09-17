@@ -24,7 +24,7 @@ public class Category {
   @JsonbTransient
   private Category parent;
 
-  @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<Category> subcategories = new ArrayList<>();
 
   // libros que pertenecen a esta categoría (no cargamos por defecto)

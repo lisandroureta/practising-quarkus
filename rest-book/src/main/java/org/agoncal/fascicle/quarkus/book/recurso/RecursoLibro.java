@@ -132,6 +132,14 @@ public class RecursoLibro {
     return Response.ok(libros).build();
   }
 
+  @Operation(summary = "Returns all books in a category (including subcategories)")
+  @APIResponse(responseCode = "200", description = "Category's book list")
+  @GET
+  @Path("/category/{id}")
+  public Response getBooksByCategory(@PathParam("id") Long id) {
+    List<TransferibleLibro> books = service.findBooksByCategory(id);
+    return Response.ok(books).build();
+  }
 
   @GET
   @Produces(MediaType.TEXT_PLAIN)

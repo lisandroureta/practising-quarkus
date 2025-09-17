@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.agoncal.fascicle.quarkus.book.client.IsbnNumbers;
 import org.agoncal.fascicle.quarkus.book.client.NumberProxy;
 import org.agoncal.fascicle.quarkus.book.modelo.Book;
+import org.agoncal.fascicle.quarkus.book.modelo.Category;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
@@ -72,5 +73,14 @@ public class AccesoLibro implements PanacheRepositoryBase<Book,Integer> {
       .setParameter("authorId", authorId) // acá le pasamos el parámetro a la query
       .getResultList(); // esto devuelve la lista de libros encontrados
   }
+
+  @Transactional(Transactional.TxType.SUPPORTS)
+  public List<Book> findBooksByCategories(List<Category> categories) {
+    return em.createQuery("SELECT b FROM Book b WHERE b.category IN :categories", Book.class)
+      .setParameter("categories", categories)
+      .getResultList();
+  }
+
+
 
 }
